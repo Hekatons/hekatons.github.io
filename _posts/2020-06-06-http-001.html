@@ -4,5 +4,58 @@ date: 2020-06-06 15:37:00 -0400
 categories: Study
 ---
 Http 완벽가이드 - O'Relly 에 대한 정리
-\n
-1장.
+
+1장. HTTP 개관
+
+ - Web System = HTML + HTTP
+
+ - Web Server(HTTP Server) ⊃ Web Contents ← Web Resource = static file + dynamic contents resource
+
+ - 미디어 타입(MIME : Multipurpose Internet Mail Extensions)
+   - 주타입/부타입 (ex : text/html, image/gif)
+
+ - URI(Uniform Resource Indentifier) = URL + URN
+   - URL(Uniform Resource Locator)
+     - http://(Schemes)github.com(Server)/Hekatons/hekatons.github.io/edit/master/_posts/2020-06-06-http-001.html(resource)
+   - URN(Uniform Resource Name)
+     - urn:ietf:rfc:2141(인터넷 표준 문서 RFC2141 의 URN)
+   - URL과 URN의 차이 : URL은 위치에 종속적이나 URN은 위치 독립적이다.
+
+ - transaction
+   - method
+     - 모든 HTTP 요청 메세지는 한 개의 method를 가진다.
+     - get/put/post/delete/head..
+   - status code
+     - 모든 HTTP 응답 메세지는 status code와 함께 반환된다.
+     - 200/302/404..
+     - status code에 reason phrase도 함께 보낸다. 실제 응답처리에는 status code만 사용된다.
+     - 200 OK / 200 Success ..
+   - Application은 하나의 작업을 수행하기위해 다수의 HTTP transaction을 수행할 수 있다.
+
+ - message
+   - request ( client -> server), response ( server -> client)
+   - structure : {Request-Line} \n {header} \n\n {body}
+     - Request-Line : 1개(1줄), request:todo표시(ex : GET /tools.html HTTP/1.0) / response:result표시 (ex : HTTP/1.0 200 OK)
+     - header : 0개 이상, ':'으로 구분된 key-value로 구성, header field 의 추가는 linefeed로 이루어짐, 빈 줄로 header영역 종료
+     - body : 임의의 text나 binary data 포함가능
+
+ - TCP(Transmission Control Protocol) connection
+   - TCP/IP
+     - HTTP는 Application 계층 Protocol이므로 Network 통신시에는 TCP(Transmission)/IP(Network)에 위임한다.
+     - TCP가 제공하는 것 : 오류없는 데이터 전송, 순서에 맞는 전달, 조각나지 않는 데이터 스트림
+     - TCP/IP는 각 network와 hardware의 특성을 숨기고 서로 신뢰성 있는 의사소통을 하게 해준다.
+   - IP Address, Port
+     - IP Addr와 Port번호를 사용해 client와 server 사이에 TCP/IP connect 생성 -> HTTP client가 server에 message 전송
+     - Host Name : IP Addr의 별명. DNS(Domain Name Service)에서 IP Addr로 변환
+     - HTTP의 기본 Port는 80(HTTP 0.9)(RFC 2616 - 3.2.2), HTTPS의 기본 Port는 443(RFC 1700)(RFC 7540 - 3) 이다.
+   - Web Browser의 작동순서
+     - URL에서 HostName추출 및 IP Addr 변환 -> Port 추출 -> server와 TCP Conn생성 -> HTTP Req전송 -> HTTP Res수신 -> TCP Conn삭제
+
+ - HTTP Version
+   - 0.9
+   - 1.0
+   - 1.0+
+   - 1.1
+   - 2.0
+
+ - Web의 구성요소
